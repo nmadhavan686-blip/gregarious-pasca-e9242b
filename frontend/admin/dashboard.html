@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard | C2T MOBILES</title>
+  <link rel="stylesheet" href="../css/style.css?v=20260913_v3">
+  <link rel="stylesheet" href="css/admin.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body class="admin-body">
+
+  <div class="admin-layout">
+    <!-- Sidebar -->
+    <aside class="admin-sidebar">
+      <div class="admin-brand">
+        <a href="../index.html" class="brand-logo">
+          <img src="../assets/images/c2t_logo.png" alt="C2T MOBILES" style="height:44px; max-width:160px; object-fit:contain;">
+        </a>
+      </div>
+
+      <ul class="admin-nav">
+        <li><a href="dashboard.html" class="active">📊 Overview Dashboard</a></li>
+        <li><a href="add-product.html">➕ Add Mobile</a></li>
+        <li><a href="products.html">📱 Manage Stock</a></li>
+        <li><a href="brands.html">🏷️ Manage Brands</a></li>
+        <li><a href="settings.html">⚙️ Profile & Settings</a></li>
+        <li><a href="../index.html" target="_blank">🌐 Customer Store</a></li>
+        <li style="margin-top: auto;"><a href="#" id="adminLogoutBtn" style="color: var(--accent-rose);">🚪 Logout</a></li>
+      </ul>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="admin-main">
+      <div class="admin-header">
+        <div>
+          <h1 class="admin-title">Stock & Enquiry Overview</h1>
+          <p style="color: var(--text-muted); font-size: 0.9rem;">Welcome back! Here is your real-time second-hand mobile store performance.</p>
+        </div>
+        <a href="add-product.html" class="btn btn-primary btn-sm">➕ Add New Mobile Stock</a>
+      </div>
+
+      <!-- KPI Metrics Grid -->
+      <div class="kpi-grid">
+        <div class="kpi-card">
+          <div>
+            <div class="kpi-num" id="kpiTotal">0</div>
+            <div class="kpi-label">Total Devices</div>
+          </div>
+          <div class="kpi-icon">📱</div>
+        </div>
+
+        <div class="kpi-card">
+          <div>
+            <div class="kpi-num" id="kpiAvailable" style="color: var(--accent-emerald);">0</div>
+            <div class="kpi-label">Available Stock</div>
+          </div>
+          <div class="kpi-icon">✅</div>
+        </div>
+
+        <div class="kpi-card">
+          <div>
+            <div class="kpi-num" id="kpiSold" style="color: var(--accent-rose);">0</div>
+            <div class="kpi-label">Sold Out</div>
+          </div>
+          <div class="kpi-icon">🏷️</div>
+        </div>
+
+        <div class="kpi-card">
+          <div>
+            <div class="kpi-num" id="kpiEnquiries" style="color: var(--accent-blue);">0</div>
+            <div class="kpi-label">WhatsApp Enquiries</div>
+          </div>
+          <div class="kpi-icon">💬</div>
+        </div>
+      </div>
+
+      <!-- Dashboard Sections Grid -->
+      <div style="display: grid; grid-template-columns: 1.6fr 1fr; gap: 2rem;">
+        
+        <!-- Recent WhatsApp Enquiries -->
+        <div class="admin-card">
+          <div class="card-header-bar">
+            <h3 style="font-size: 1.1rem; font-weight: 800;">Recent WhatsApp Enquiries</h3>
+            <span style="font-size: 0.8rem; color: var(--text-muted);">Real-time leads</span>
+          </div>
+
+          <div class="table-responsive">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Product Name</th>
+                  <th>Price</th>
+                  <th>Status</th>
+                  <th>Timestamp</th>
+                </tr>
+              </thead>
+              <tbody id="recentEnquiriesTable">
+                <!-- Dynamically populated -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Recently Added Stock -->
+        <div class="admin-card">
+          <div class="card-header-bar">
+            <h3 style="font-size: 1.1rem; font-weight: 800;">Recent Mobile Stock</h3>
+            <a href="products.html" style="font-size: 0.85rem; font-weight: 700; color: var(--accent-blue);">View All</a>
+          </div>
+
+          <div id="recentProductsGrid" style="padding: 0.5rem;">
+            <!-- Dynamically populated -->
+          </div>
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <script src="../js/api.js"></script>
+  <script src="js/admin-auth.js"></script>
+  <script src="js/admin-dashboard.js"></script>
+</body>
+</html>

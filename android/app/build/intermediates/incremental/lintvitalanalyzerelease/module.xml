@@ -1,0 +1,19 @@
+<lint-module
+    format="1"
+    dir="C:\Users\madhavan\Desktop\C2T\android\app"
+    name=":app"
+    type="APP"
+    maven="C2TMobiles:app:"
+    agpVersion="8.2.2"
+    buildFolder="build"
+    bootClassPath="C:\Users\madhavan\.gemini\antigravity\brain\d47a7653-1ba2-4a12-8641-03c3f45c0c09\scratch\tools\android-sdk\platforms\android-34\android.jar;C:\Users\madhavan\.gemini\antigravity\brain\d47a7653-1ba2-4a12-8641-03c3f45c0c09\scratch\tools\android-sdk\build-tools\34.0.0\core-lambda-stubs.jar"
+    javaSourceLevel="1.8"
+    compileTarget="android-34"
+    neverShrinking="true">
+  <lintOptions
+      abortOnError="true"
+      absolutePaths="true"
+      checkReleaseBuilds="true"
+      explainIssues="true"/>
+  <variant name="release"/>
+</lint-module>

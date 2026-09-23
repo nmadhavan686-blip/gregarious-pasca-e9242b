@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Manage Brands | C2T MOBILES Admin</title>
+  <link rel="stylesheet" href="../css/style.css?v=20260913_v3">
+  <link rel="stylesheet" href="css/admin.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body class="admin-body">
+
+  <div class="admin-layout">
+    <aside class="admin-sidebar">
+      <div class="admin-brand">
+        <a href="../index.html" class="brand-logo">
+          <img src="../assets/images/c2t_logo.png" alt="C2T MOBILES" style="height:44px; max-width:160px; object-fit:contain;">
+        </a>
+      </div>
+
+      <ul class="admin-nav">
+        <li><a href="dashboard.html">📊 Overview Dashboard</a></li>
+        <li><a href="add-product.html">➕ Add Mobile</a></li>
+        <li><a href="products.html">📱 Manage Stock</a></li>
+        <li><a href="brands.html" class="active">🏷️ Manage Brands</a></li>
+        <li><a href="settings.html">⚙️ Profile & Settings</a></li>
+        <li><a href="../index.html" target="_blank">🌐 Customer Store</a></li>
+        <li style="margin-top: auto;"><a href="#" id="adminLogoutBtn" style="color: var(--accent-rose);">🚪 Logout</a></li>
+      </ul>
+    </aside>
+
+    <main class="admin-main">
+      <div class="admin-header">
+        <div>
+          <h1 class="admin-title">Manage Mobile Brands</h1>
+          <p style="color: var(--text-muted); font-size: 0.9rem;">Add, edit, disable, or reorder mobile brand categories dynamically.</p>
+        </div>
+        <button id="openAddBrandModal" class="btn btn-primary btn-sm">➕ Add New Brand</button>
+      </div>
+
+      <div class="admin-card">
+        <div class="table-responsive">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>Icon</th>
+                <th>Brand Name</th>
+                <th>Slug</th>
+                <th>Order</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="brandsTableBody">
+              <!-- Dynamically populated -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Add/Edit Brand Modal -->
+  <div class="modal-overlay" id="brandModal">
+    <div class="modal-box">
+      <h3 style="font-size: 1.25rem; font-weight: 800; margin-bottom: 1rem;" id="modalTitle">Add New Brand</h3>
+      <form id="addBrandForm">
+        <div class="form-group" style="margin-bottom: 1rem;">
+          <label>Brand Name *</label>
+          <input type="text" id="brand_name" class="form-control" placeholder="e.g. Xiaomi, POCO, iQOO" required>
+        </div>
+
+        <div class="form-group" style="margin-bottom: 1rem;">
+          <label>Brand Emoji / Icon</label>
+          <input type="text" id="brand_icon" class="form-control" placeholder="e.g. 📱, 🍎, 🚀">
+        </div>
+
+        <div class="form-group" style="margin-bottom: 1rem;">
+          <label>Display Order</label>
+          <input type="number" id="brand_order" class="form-control" value="0">
+        </div>
+
+        <div class="form-group" style="margin-bottom: 1rem;">
+          <label>Status</label>
+          <select id="brand_active" class="form-control">
+            <option value="1">Active</option>
+            <option value="0">Disabled</option>
+          </select>
+        </div>
+
+        <div class="form-group" style="margin-bottom: 1.5rem;">
+          <label>Description</label>
+          <textarea id="brand_desc" rows="2" class="form-control" placeholder="Brand description..."></textarea>
+        </div>
+
+        <div style="display: flex; gap: 1rem; justify-content: flex-end;">
+          <button type="button" id="closeBrandModal" class="btn btn-secondary btn-sm">Cancel</button>
+          <button type="submit" class="btn btn-primary btn-sm">Save Brand</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="../js/api.js"></script>
+  <script src="js/admin-auth.js"></script>
+  <script src="js/admin-brands.js"></script>
+</body>
+</html>

@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>C2T MOBILES | Find Your Next Smartphone</title>
+  <meta name="description" content="Quality-checked second-hand & refurbished smartphones in India. Direct WhatsApp deal communication with honest pricing and transparent condition inspection.">
+  <link rel="stylesheet" href="css/style.css?v=20260913_v3">
+  <link rel="stylesheet" href="css/responsive.css?v=20260913_v3">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    /* Brand Cards Grid */
+    .brand-categories-section {
+      padding: 3.5rem 0 2rem;
+      background: var(--bg-card);
+      border-bottom: 1px solid var(--border-color);
+    }
+    .brand-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+      gap: 1.25rem;
+    }
+    .brand-card {
+      background: var(--bg-light);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 1.25rem 0.75rem;
+      text-align: center;
+      transition: var(--transition);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      cursor: pointer;
+      text-decoration: none;
+      color: var(--text-main);
+    }
+    .brand-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-md);
+      border-color: var(--accent-blue);
+      background: white;
+    }
+    .brand-card-icon {
+      font-size: 2rem;
+      line-height: 1;
+    }
+    .brand-card-name {
+      font-weight: 800;
+      font-size: 0.95rem;
+    }
+    .brand-card-count {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    /* User Profile Dropdown in Header */
+    .user-profile-menu {
+      position: relative;
+      display: inline-block;
+    }
+    .user-profile-btn {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: var(--radius-full);
+      font-size: 0.875rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .user-dropdown {
+      position: absolute;
+      right: 0;
+      top: 110%;
+      background: white;
+      color: var(--text-main);
+      min-width: 180px;
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-lg);
+      border: 1px solid var(--border-color);
+      display: none;
+      flex-direction: column;
+      z-index: 200;
+      overflow: hidden;
+    }
+    .user-profile-menu:hover .user-dropdown, .user-dropdown.active {
+      display: flex;
+    }
+    .user-dropdown a, .user-dropdown button {
+      padding: 0.75rem 1rem;
+      font-size: 0.875rem;
+      font-weight: 600;
+      text-align: left;
+      color: var(--text-main);
+      transition: var(--transition);
+      width: 100%;
+    }
+    .user-dropdown a:hover, .user-dropdown button:hover {
+      background: #f1f5f9;
+      color: var(--accent-blue);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 1. HEADER / NAVBAR -->
+  <header class="site-header">
+    <div class="container header-container">
+      <a href="index.html" class="brand-logo">
+        <img src="assets/images/c2t_logo.png" alt="C2T MOBILES" class="logo-image" style="height:48px; max-width:180px; object-fit:contain;">
+      </a>
+
+      <nav>
+        <ul class="nav-menu">
+          <li><a href="index.html" class="nav-link active">Home</a></li>
+          <li><a href="products.html" class="nav-link">Mobiles</a></li>
+          <li><a href="about.html" class="nav-link">About Us</a></li>
+          <li><a href="contact.html" class="nav-link">Contact</a></li>
+          <li><a href="faq.html" class="nav-link">FAQ</a></li>
+          <li><a href="account.html" class="nav-link">My Account</a></li>
+        </ul>
+      </nav>
+
+      <div class="header-actions">
+        <a href="products.html" class="search-trigger">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+          Search Mobiles...
+        </a>
+
+        <!-- User Profile Account Menu -->
+        <div id="userHeaderAuth" class="user-profile-menu">
+          <!-- Rendered dynamically by app.js (e.g. 👤 Madhavan or Login button) -->
+          <a href="login.html" class="btn btn-outline-light btn-sm" style="font-size:0.85rem; padding:0.4rem 0.9rem;">Login</a>
+        </div>
+
+        <a href="#" class="btn-wa-header dynamic-wa-link">💬 Chat on WhatsApp</a>
+
+        <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle navigation">
+          <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"></path></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Drawer -->
+  <div class="mobile-drawer-overlay" id="drawerOverlay"></div>
+  <div class="mobile-drawer" id="mobileDrawer">
+    <div class="drawer-header">
+      <a href="index.html" class="brand-logo">
+        <img src="assets/images/c2t_logo.png" alt="C2T MOBILES" class="logo-image" style="height:40px; max-width:160px; object-fit:contain;">
+      </a>
+      <button class="drawer-close" id="drawerClose">✕</button>
+    </div>
+    <ul class="drawer-nav">
+      <li><a href="index.html" class="active">Home</a></li>
+      <li><a href="products.html">Browse Mobiles</a></li>
+      <li><a href="about.html">About C2T MOBILES</a></li>
+      <li><a href="contact.html">Contact Us</a></li>
+      <li><a href="faq.html">FAQ</a></li>
+    </ul>
+    <div id="mobileDrawerAuth" style="margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid var(--border-dark);">
+      <a href="login.html" class="btn btn-outline-light" style="width: 100%;">Sign In / Register</a>
+    </div>
+    <div style="margin-top: 1rem;">
+      <a href="#" class="btn btn-whatsapp dynamic-wa-link" style="width: 100%;">💬 WhatsApp Support</a>
+    </div>
+  </div>
+
+  <!-- 2. HERO / WELCOME SECTION -->
+  <section class="hero-section" style="padding: 3rem 0 3.5rem;">
+    <div class="container hero-grid">
+      <div>
+        <div class="hero-tag">✨ Verified Second-Hand Smartphones</div>
+        <h1 class="hero-title">Find Your Next <span>Smartphone</span></h1>
+        <p class="hero-subtitle">Quality-checked second-hand mobiles at honest prices. Talk directly with C2T MOBILES before you buy.</p>
+        <div class="hero-cta-group">
+          <a href="products.html" class="btn btn-primary">Browse Mobiles</a>
+          <a href="#" class="btn btn-whatsapp dynamic-wa-link">Chat on WhatsApp</a>
+        </div>
+      </div>
+
+      <div class="hero-visual">
+        <div class="hero-card-preview" style="max-width: 340px;">
+          <div style="font-size: 0.8rem; font-weight: 800; color: var(--accent-emerald); text-transform: uppercase; margin-bottom: 0.5rem;">🔥 Featured Stock Item</div>
+          <div style="font-size: 1.4rem; font-weight: 900; margin-bottom: 0.25rem;">Apple iPhone 13</div>
+          <div style="color: #cbd5e1; font-size: 0.85rem; margin-bottom: 1rem;">128GB • Midnight • 87% Battery Health</div>
+          <div style="display: flex; justify-content: space-between; align-items: baseline; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 0.75rem;">
+            <div>
+              <span style="font-size: 1.4rem; font-weight: 900; color: #10b981;">₹32,999</span>
+              <span style="font-size: 0.8rem; color: #94a3b8; text-decoration: line-through;">₹59,900</span>
+            </div>
+            <span style="background: rgba(16,185,129,0.2); color: #10b981; font-weight: 800; padding: 0.2rem 0.5rem; border-radius: 4px; font-size: 0.75rem;">Verified</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. BRAND CATEGORIES (SHOP BY BRAND - BEFORE PRODUCTS!) -->
+  <section class="brand-categories-section">
+    <div class="container">
+      <div class="section-header" style="margin-bottom: 2rem;">
+        <h2 class="section-title">Shop by Brand</h2>
+        <p class="section-subtitle">Select your favorite brand to view available stock.</p>
+      </div>
+
+      <div id="brandGrid" class="brand-grid">
+        <!-- Dynamically populated from /api/brands -->
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. LATEST MOBILES STOCK -->
+  <section class="products-section" style="padding: 3.5rem 0;">
+    <div class="container">
+      <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem;">
+        <div>
+          <h2 class="section-title" style="text-align: left;">Latest Mobiles Stock</h2>
+          <p class="section-subtitle" style="text-align: left;">Browse our latest quality-checked second-hand smartphones.</p>
+        </div>
+        <a href="products.html" class="btn btn-secondary btn-sm">View All Mobiles →</a>
+      </div>
+
+      <div id="latestProductsGrid" class="product-grid">
+        <!-- Populated via JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. FEATURED MOBILES -->
+  <section class="products-section" style="padding: 3.5rem 0; background: #ffffff; border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color);">
+    <div class="container">
+      <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem;">
+        <div>
+          <h2 class="section-title" style="text-align: left;">Featured Mobiles</h2>
+          <p class="section-subtitle" style="text-align: left;">Handpicked top deals selected by C2T MOBILES.</p>
+        </div>
+        <a href="products.html?sort=popular" class="btn btn-secondary btn-sm">Explore Featured Deals →</a>
+      </div>
+
+      <div id="featuredProductsGrid" class="product-grid">
+        <!-- Populated via JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. BROWSE ALL MOBILES SECTION -->
+  <section class="products-section" style="padding: 4rem 0;">
+    <div class="container">
+      <div class="section-header" style="margin-bottom: 2rem;">
+        <h2 class="section-title">Browse All Mobiles</h2>
+        <p class="section-subtitle">Search, filter and find your perfect pre-owned device.</p>
+      </div>
+
+      <div class="catalog-topbar" style="margin-bottom: 2rem;">
+        <div class="search-input-wrap">
+          <span class="search-icon-pos">🔍</span>
+          <input type="text" id="homeSearchInput" placeholder="Search iPhone 13, Samsung S23, OnePlus 12...">
+        </div>
+
+        <select id="homeSortSelect" class="sort-select">
+          <option value="newest">Newest First</option>
+          <option value="price_asc">Price: Low to High</option>
+          <option value="price_desc">Price: High to Low</option>
+        </select>
+      </div>
+
+      <div id="browseAllProductsGrid" class="product-grid">
+        <!-- Populated via JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. TRUST / WHY BUY FROM C2T MOBILES? (MOVED TO BOTTOM BEFORE FOOTER!) -->
+  <section class="trust-section" style="background: var(--bg-card); border-top: 1px solid var(--border-color);">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Why Buy From C2T MOBILES?</h2>
+        <p class="section-subtitle">We bridge trust in second-hand smartphone buying through complete transparency and personal assistance.</p>
+      </div>
+
+      <div class="trust-grid">
+        <div class="trust-card">
+          <div class="trust-icon">🔍</div>
+          <h3>Quality Checked Mobiles</h3>
+          <p>Every device undergoes a 30-point inspection covering display, camera, battery, speakers, and ports.</p>
+        </div>
+        <div class="trust-card">
+          <div class="trust-icon">📋</div>
+          <h3>Transparent Details</h3>
+          <p>We declare exact physical condition, battery health percentage, and repair history upfront.</p>
+        </div>
+        <div class="trust-card">
+          <div class="trust-icon">💰</div>
+          <h3>Competitive Prices</h3>
+          <p>Get flagship features and premium iPhones at fair, honest second-hand market prices.</p>
+        </div>
+        <div class="trust-card">
+          <div class="trust-icon">💬</div>
+          <h3>Direct WhatsApp Support</h3>
+          <p>Talk directly with the owner to inspect live photos, negotiate, or clarify questions before purchase.</p>
+        </div>
+        <div class="trust-card">
+          <div class="trust-icon">🚫</div>
+          <h3>No Hidden Checkout Charges</h3>
+          <p>No automated gateway fees or hidden charges. Pay directly to the owner upon deal confirmation.</p>
+        </div>
+        <div class="trust-card">
+          <div class="trust-icon">🤝</div>
+          <h3>Personal Customer Assistance</h3>
+          <p>Dedicated personal support from choosing the right device to delivery and post-purchase queries.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Floating WhatsApp CTA -->
+  <a href="#" id="floatingWA" class="floating-whatsapp" aria-label="Chat on WhatsApp">💬</a>
+
+  <!-- Mobile Bottom Navigation Bar -->
+  <div class="mobile-bottom-nav">
+    <a href="index.html" class="bottom-nav-item active">
+      <span>🏠</span>
+      <span>Home</span>
+    </a>
+    <a href="products.html" class="bottom-nav-item">
+      <span>📱</span>
+      <span>Mobiles</span>
+    </a>
+    <a href="products.html?focus=search" class="bottom-nav-item">
+      <span>🔍</span>
+      <span>Search</span>
+    </a>
+    <a href="#" class="bottom-nav-item dynamic-wa-link">
+      <span>💬</span>
+      <span>WhatsApp</span>
+    </a>
+  </div>
+
+  <!-- 8. FOOTER -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <a href="index.html" class="brand-logo" style="margin-bottom: 1rem; display:inline-block;">
+            <img src="assets/images/c2t_logo.png" alt="C2T MOBILES" class="logo-image" style="height:52px; max-width:200px; object-fit:contain;">
+          </a>
+          <p style="font-size: 0.9rem; line-height: 1.6; margin-bottom: 1rem;">
+            Second-hand smartphones, made simple. Quality-checked devices with honest pricing and direct WhatsApp communication.
+          </p>
+        </div>
+
+        <div class="footer-col">
+          <h4>Quick Links</h4>
+          <ul class="footer-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="products.html">Browse Mobiles</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+            <li><a href="faq.html">FAQ</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Customer Support</h4>
+          <ul class="footer-links">
+            <li><a href="#" class="dynamic-wa-link">WhatsApp Enquiries</a></li>
+            <li><a href="contact.html">Location & Email</a></li>
+            <li><a href="faq.html">Things to check before buying</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Legal</h4>
+          <ul class="footer-links">
+            <li><a href="privacy.html">Privacy Policy</a></li>
+            <li><a href="terms.html">Terms & Conditions</a></li>
+            <li><a href="/admin/login.html">Admin Access</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>© 2026 C2T MOBILES. All rights reserved.</div>
+        <div>Built for fast, direct, trustworthy smartphone deals in India.</div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/api.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/home.js"></script>
+</body>
+</html>

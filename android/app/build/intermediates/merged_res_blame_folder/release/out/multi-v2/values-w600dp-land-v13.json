@@ -1,0 +1,34 @@
+{
+    "logs": [
+        {
+            "outputFile": "com.c2tmobiles.app-mergeReleaseResources-30:/values-w600dp-land-v13/values-w600dp-land-v13.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\madhavan\\.gradle\\caches\\transforms-3\\375d77e3bac5523f6a4d9c17a7b2806c\\transformed\\material-1.11.0\\res\\values-w600dp-land-v13\\values-w600dp-land-v13.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "54",
+                        "endOffsets": "105"
+                    }
+                }
+            ]
+        },
+        {
+            "outputFile": "C:\\Users\\madhavan\\.gradle\\daemon\\8.4\\com.c2tmobiles.app-mergeReleaseResources-30:\\values-w600dp-land-v13\\values-w600dp-land-v13.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\madhavan\\.gradle\\caches\\transforms-3\\375d77e3bac5523f6a4d9c17a7b2806c\\transformed\\material-1.11.0\\res\\values-w600dp-land-v13\\values-w600dp-land-v13.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "54",
+                        "endOffsets": "105"
+                    }
+                }
+            ]
+        }
+    ]
+}

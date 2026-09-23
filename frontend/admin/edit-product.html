@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edit Mobile Stock | C2T MOBILES Admin</title>
+  <link rel="stylesheet" href="../css/style.css?v=20260913_v3">
+  <link rel="stylesheet" href="css/admin.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body class="admin-body">
+
+  <div class="admin-layout">
+    <aside class="admin-sidebar">
+      <div class="admin-brand">
+        <a href="dashboard.html" class="brand-logo">
+          <img src="../assets/images/c2t_logo.png" alt="C2T MOBILES" style="height: 40px; object-fit: contain;">
+        </a>
+      </div>
+
+      <ul class="admin-nav">
+        <li><a href="dashboard.html">📊 Overview Dashboard</a></li>
+        <li><a href="products.html">📱 Inventory Stock</a></li>
+        <li><a href="add-product.html">➕ Add New Mobile</a></li>
+        <li><a href="brands.html">🏷️ Manage Brands</a></li>
+        <li><a href="settings.html">⚙️ Site & WhatsApp Settings</a></li>
+        <li><a href="/" target="_blank">🌐 View Customer Store</a></li>
+        <li style="margin-top: auto;"><a href="#" id="adminLogoutBtn" style="color: var(--accent-rose);">🚪 Logout</a></li>
+      </ul>
+    </aside>
+
+    <main class="admin-main">
+      <div class="admin-header">
+        <div>
+          <h1 class="admin-title" id="formTitle">Edit Mobile Stock</h1>
+          <p style="color: var(--text-muted); font-size: 0.9rem;">Update device pricing, condition scores, specs, or manage photos.</p>
+        </div>
+        <a href="products.html" class="btn btn-secondary btn-sm">← Back to Inventory</a>
+      </div>
+
+      <form id="productForm" class="admin-card" style="padding: 2rem;">
+        
+        <!-- Basic Device Info -->
+        <h3 style="font-size: 1.15rem; font-weight: 800; border-bottom: 1px solid var(--border-color); padding-bottom: 0.5rem; margin-bottom: 1.5rem;">Basic Device Info</h3>
+        
+        <div class="form-grid" style="margin-bottom: 2rem;">
+          <div class="form-group">
+            <label>Brand *</label>
+            <select name="brand" class="form-control" required>
+              <option value="Apple">Apple</option>
+              <option value="Samsung">Samsung</option>
+              <option value="OnePlus">OnePlus</option>
+              <option value="Google">Google</option>
+              <option value="Xiaomi">Xiaomi</option>
+              <option value="Redmi">Redmi</option>
+              <option value="Realme">Realme</option>
+              <option value="Vivo">Vivo</option>
+              <option value="Oppo">Oppo</option>
+              <option value="Nothing">Nothing</option>
+              <option value="Motorola">Motorola</option>
+              <option value="iQOO">iQOO</option>
+              <option value="POCO">POCO</option>
+              <option value="ASUS">ASUS</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Model Name *</label>
+            <input type="text" name="model" class="form-control" required>
+          </div>
+
+          <div class="form-group">
+            <label>Product ID (Unique)</label>
+            <input type="text" name="product_id" class="form-control" readonly style="background:#f1f5f9;">
+          </div>
+
+          <div class="form-group">
+            <label>Selling Price (₹) *</label>
+            <input type="number" name="price" class="form-control" required>
+          </div>
+
+          <div class="form-group">
+            <label>Original MRP (₹)</label>
+            <input type="number" name="mrp" class="form-control">
+          </div>
+
+          <div class="form-group">
+            <label>Storage *</label>
+            <select name="storage" class="form-control" required>
+              <option value="64GB">64GB</option>
+              <option value="128GB">128GB</option>
+              <option value="256GB">256GB</option>
+              <option value="512GB">512GB</option>
+              <option value="1TB">1TB</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>RAM</label>
+            <input type="text" name="ram" class="form-control">
+          </div>
+
+          <div class="form-group">
+            <label>Colour</label>
+            <input type="text" name="colour" class="form-control">
+          </div>
+
+          <div class="form-group">
+            <label>Condition Grade *</label>
+            <select name="condition" class="form-control" required>
+              <option value="Like New">Like New (10/10 Mint)</option>
+              <option value="Excellent">Excellent (9/10 Minor micro-scratches)</option>
+              <option value="Good">Good (8/10 Normal usage marks)</option>
+              <option value="Fair">Fair (7/10 Visible marks / minor dent)</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Battery Health %</label>
+            <input type="text" name="battery_health" class="form-control">
+          </div>
+        </div>
+
+        <!-- Package & Status Details -->
+        <h3 style="font-size: 1.15rem; font-weight: 800; border-bottom: 1px solid var(--border-color); padding-bottom: 0.5rem; margin-bottom: 1.5rem;">Status, Package & Warranty</h3>
+        
+        <div class="form-grid" style="margin-bottom: 2rem;">
+          <div class="form-group">
+            <label>Stock Status</label>
+            <select name="status" class="form-control">
+              <option value="AVAILABLE">AVAILABLE</option>
+              <option value="SOLD">SOLD</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Custom Badge</label>
+            <select name="badge" class="form-control">
+              <option value="">None</option>
+              <option value="HOT DEAL">HOT DEAL</option>
+              <option value="FEATURED">FEATURED</option>
+              <option value="SALE">SALE</option>
+              <option value="LIKE NEW">LIKE NEW</option>
+              <option value="SOLD OUT">SOLD OUT</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Warranty Info</label>
+            <input type="text" name="warranty" class="form-control">
+          </div>
+
+          <div class="form-group">
+            <label>Purchase Date</label>
+            <input type="text" name="purchase_date" class="form-control">
+          </div>
+
+          <div class="form-group">
+            <label>Box Included?</label>
+            <select name="box_included" class="form-control">
+              <option value="1">Yes ✓ Original Box Included</option>
+              <option value="0">No Box</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Charger Included?</label>
+            <select name="charger_included" class="form-control">
+              <option value="1">Yes ✓ Charger Included</option>
+              <option value="0">No Charger</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Featured Product?</label>
+            <select name="featured" class="form-control">
+              <option value="0">No</option>
+              <option value="1">Yes (Display on Homepage)</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Phone Condition Inspection Details -->
+        <h3 style="font-size: 1.15rem; font-weight: 800; border-bottom: 1px solid var(--border-color); padding-bottom: 0.5rem; margin-bottom: 1.5rem;">🔍 15-Point Condition Matrix</h3>
+
+        <div class="form-grid" style="margin-bottom: 2rem;">
+          <div class="form-group">
+            <label>Display Condition</label>
+            <input type="text" name="display_condition" class="form-control">
+          </div>
+
+          <div class="form-group">
+            <label>Body / Frame Condition</label>
+            <input type="text" name="body_condition" class="form-control">
+          </div>
+
+          <div class="form-group">
+            <label>Camera Lens & Sensors</label>
+            <input type="text" name="camera_condition" class="form-control">
+          </div>
+
+          <div class="form-group">
+            <label>Battery Status</label>
+            <input type="text" name="battery_condition" class="form-control">
+          </div>
+
+          <div class="form-group">
+            <label>Speaker Output</label>
+            <input type="text" name="speaker_condition" class="form-control">
+          </div>
+
+          <div class="form-group">
+            <label>Mic Condition</label>
+            <input type="text" name="mic_condition" class="form-control">
+          </div>
+
+          <div class="form-group">
+            <label>Charging Port</label>
+            <input type="text" name="charging_port_condition" class="form-control">
+          </div>
+
+          <div class="form-group">
+            <label>Face ID / Fingerprint</label>
+            <input type="text" name="face_id_condition" class="form-control">
+          </div>
+
+          <div class="form-group">
+            <label>Repairs History</label>
+            <input type="text" name="repairs" class="form-control">
+          </div>
+        </div>
+
+        <!-- Description & Images -->
+        <h3 style="font-size: 1.15rem; font-weight: 800; border-bottom: 1px solid var(--border-color); padding-bottom: 0.5rem; margin-bottom: 1.5rem;">Description & Device Photos</h3>
+
+        <div class="form-group" style="margin-bottom: 1.5rem;">
+          <label>Product Description</label>
+          <textarea name="description" rows="3" class="form-control"></textarea>
+        </div>
+
+        <div class="form-group" style="margin-bottom: 2rem;">
+          <label>Existing & New Photos</label>
+          <input type="file" id="imageInput" name="images" multiple accept="image/*" class="form-control">
+          <div id="imagePreviewGrid" class="image-preview-grid"></div>
+        </div>
+
+        <button type="submit" id="submitBtn" class="btn btn-primary" style="padding: 1rem 2rem; width: 100%; font-size: 1.1rem;">
+          Update Mobile Stock
+        </button>
+
+      </form>
+    </main>
+  </div>
+
+  <script src="../js/api.js"></script>
+  <script src="js/admin-auth.js"></script>
+  <script src="js/admin-form.js"></script>
+</body>
+</html>

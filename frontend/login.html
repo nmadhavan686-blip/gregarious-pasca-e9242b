@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login | C2T MOBILES</title>
+  <meta name="description" content="Log in to C2T MOBILES to access quality-checked pre-owned smartphones and direct WhatsApp deals.">
+  <link rel="stylesheet" href="css/style.css?v=20260913_v3">
+  <link rel="stylesheet" href="css/responsive.css?v=20260913_v3">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+  <script src="https://appleid.cdn-apple.com/appleauth/static/jsapi/v1/appleid.auth.js" async defer></script>
+  <style>
+    .auth-wrapper {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-navy) 100%);
+      padding: 1.5rem;
+    }
+    .auth-card {
+      background: #ffffff;
+      width: 100%;
+      max-width: 440px;
+      padding: 2.5rem;
+      border-radius: var(--radius-md);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.3);
+    }
+    .auth-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .auth-header h1 {
+      font-size: 1.6rem;
+      font-weight: 900;
+      color: var(--text-main);
+      margin-top: 0.75rem;
+    }
+    .auth-header p {
+      color: var(--text-muted);
+      font-size: 0.925rem;
+      margin-top: 0.25rem;
+    }
+    .divider-or {
+      display: flex;
+      align-items: center;
+      text-align: center;
+      margin: 1.5rem 0;
+      color: var(--text-light);
+      font-size: 0.85rem;
+      font-weight: 700;
+    }
+    .divider-or::before, .divider-or::after {
+      content: '';
+      flex: 1;
+      border-bottom: 1px solid var(--border-color);
+    }
+    .divider-or span {
+      padding: 0 0.75rem;
+    }
+    .btn-social {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+      width: 100%;
+      padding: 0.75rem 1rem;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: var(--text-main);
+      background: white;
+      transition: var(--transition);
+      margin-bottom: 0.75rem;
+      cursor: pointer;
+    }
+    .btn-social:hover {
+      background: #f8fafc;
+      border-color: #cbd5e1;
+    }
+    .oauth-modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.6);
+      backdrop-filter: blur(4px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s ease;
+    }
+    .oauth-modal.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .oauth-box {
+      background: white;
+      padding: 2rem;
+      border-radius: 12px;
+      max-width: 460px;
+      width: 90%;
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="auth-wrapper">
+    <div class="auth-card">
+      <div class="auth-header">
+        <a href="index.html" class="brand-logo" style="justify-content: center; display:block; text-align:center;">
+          <img src="assets/images/c2t_logo.png" alt="C2T MOBILES" style="height:54px; max-width:200px; object-fit:contain; margin:0 auto;">
+        </a>
+        <h1>Welcome to C2T MOBILES</h1>
+        <p>Find quality second-hand mobiles at honest prices.</p>
+      </div>
+
+      <form id="userLoginForm">
+        <!-- Clean Vertical Form Layout: Label strictly above input -->
+        <div class="form-group">
+          <label for="identifier">Email or Mobile Number</label>
+          <input type="text" id="identifier" name="identifier" class="form-control" placeholder="Enter your email or mobile number" required>
+        </div>
+
+        <div class="form-group">
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <label for="password">Password</label>
+            <a href="#" onclick="alert('Please contact store support on WhatsApp to reset your password.')" style="font-size: 0.8rem; font-weight: 700; color: var(--accent-blue);">Forgot Password?</a>
+          </div>
+          <input type="password" id="password" name="password" class="form-control" placeholder="Enter your password" required>
+        </div>
+
+        <div id="authError" style="display: none; color: var(--accent-rose); font-size: 0.875rem; font-weight: 700; margin-bottom: 1rem; text-align: center;"></div>
+
+        <button type="submit" id="loginBtn" class="btn btn-primary" style="width: 100%; padding: 0.85rem;">Login</button>
+      </form>
+
+      <div class="divider-or"><span>OR</span></div>
+
+      <!-- Social Login Buttons -->
+      <button type="button" class="btn-social" onclick="triggerGoogleSignIn()">
+        <svg width="18" height="18" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/></svg>
+        Continue with Google
+      </button>
+
+      <button type="button" class="btn-social" onclick="triggerAppleSignIn()">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.32c.67-.82 1.13-1.97.99-3.12-.98.04-2.19.66-2.88 1.47-.62.72-1.16 1.89-.99 3.02 1.1.09 2.23-.55 2.88-1.37z"/></svg>
+        Continue with Apple
+      </button>
+
+      <div style="text-align: center; margin-top: 1.5rem; font-size: 0.9rem; color: var(--text-muted);">
+        Don't have an account? <a href="register.html" style="font-weight: 700; color: var(--accent-blue);">Create Account</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- OAuth Info & Test Modal -->
+  <div class="oauth-modal" id="oauthModal">
+    <div class="oauth-box">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
+        <h3 id="oauthModalTitle" style="font-weight:800; font-size:1.15rem; color:var(--text-main);">OAuth Provider Authentication</h3>
+        <button onclick="closeOAuthModal()" style="background:none; border:none; font-size:1.5rem; cursor:pointer; color:var(--text-muted);">&times;</button>
+      </div>
+      <p id="oauthModalText" style="font-size:0.875rem; color:var(--text-muted); margin-bottom:1rem; line-height:1.5;">
+        OAuth endpoint ready.
+      </p>
+
+      <div id="oauthDevSection" style="background:#f8fafc; padding:1rem; border-radius:8px; border:1px solid #e2e8f0; margin-bottom:1rem;">
+        <div style="font-size:0.8rem; font-weight:700; color:#475569; margin-bottom:0.5rem; text-transform:uppercase;">Quick Dev OAuth Test:</div>
+        <div class="form-group" style="margin-bottom:0.5rem;">
+          <label style="font-size:0.75rem;">Test Email</label>
+          <input type="email" id="oauthTestEmail" class="form-control" style="padding:0.4rem 0.6rem; font-size:0.85rem;" placeholder="Enter email for OAuth test">
+        </div>
+        <div class="form-group" style="margin-bottom:0.75rem;">
+          <label style="font-size:0.75rem;">Test Name</label>
+          <input type="text" id="oauthTestName" class="form-control" style="padding:0.4rem 0.6rem; font-size:0.85rem;" placeholder="Enter full name for OAuth test">
+        </div>
+        <button type="button" id="oauthSubmitDevBtn" class="btn btn-primary btn-sm" style="width:100%;">Authenticate via Endpoint</button>
+      </div>
+
+      <div style="text-align:right;">
+        <button type="button" class="btn btn-outline-dark btn-sm" onclick="closeOAuthModal()">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/api.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const form = document.getElementById('userLoginForm');
+      const errorDiv = document.getElementById('authError');
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        errorDiv.style.display = 'none';
+
+        const identifier = document.getElementById('identifier').value.trim();
+        const password = document.getElementById('password').value.trim();
+
+        try {
+          const res = await API.userLogin(identifier, password);
+          if (res.user && ['owner', 'admin'].includes(res.user.role)) {
+            window.location.href = '/admin/dashboard.html';
+          } else {
+            window.location.href = 'index.html';
+          }
+        } catch (err) {
+          errorDiv.textContent = err.message || "Invalid credentials";
+          errorDiv.style.display = 'block';
+        }
+      });
+    });
+
+    let currentOAuthProvider = 'google';
+
+    function triggerGoogleSignIn() {
+      currentOAuthProvider = 'google';
+      if (window.GOOGLE_CLIENT_ID && window.google?.accounts?.id) {
+        window.google.accounts.id.initialize({
+          client_id: window.GOOGLE_CLIENT_ID,
+          callback: handleGoogleCredentialResponse
+        });
+        window.google.accounts.id.prompt();
+        return;
+      }
+
+      document.getElementById('oauthModalTitle').textContent = 'Google Authentication Integration';
+      document.getElementById('oauthModalText').innerHTML = `
+        Real <code>/api/auth/google</code> route is active in backend.<br>
+        To enable production Google One-Tap/Popup, set <code>GOOGLE_CLIENT_ID</code> in <code>.env</code>.
+      `;
+      document.getElementById('oauthTestEmail').value = 'customer.google@example.com';
+      document.getElementById('oauthTestName').value = 'Google Verified Customer';
+      document.getElementById('oauthSubmitDevBtn').onclick = () => executeOAuthLogin('google');
+      document.getElementById('oauthModal').classList.add('active');
+    }
+
+    function triggerAppleSignIn() {
+      currentOAuthProvider = 'apple';
+      if (window.APPLE_CLIENT_ID && window.AppleID) {
+        window.AppleID.auth.init({
+          clientId: window.APPLE_CLIENT_ID,
+          scope: 'name email',
+          redirectURI: window.location.origin,
+          usePopup: true
+        });
+        window.AppleID.auth.signIn().then(handleAppleCredentialResponse);
+        return;
+      }
+
+      document.getElementById('oauthModalTitle').textContent = 'Apple Authentication Integration';
+      document.getElementById('oauthModalText').innerHTML = `
+        Real <code>/api/auth/apple</code> route is active in backend.<br>
+        To enable production Apple Sign-In, set <code>APPLE_CLIENT_ID</code> in <code>.env</code>.
+      `;
+      document.getElementById('oauthTestEmail').value = 'customer.apple@example.com';
+      document.getElementById('oauthTestName').value = 'Apple Signed-In Customer';
+      document.getElementById('oauthSubmitDevBtn').onclick = () => executeOAuthLogin('apple');
+      document.getElementById('oauthModal').classList.add('active');
+    }
+
+    async function handleGoogleCredentialResponse(response) {
+      try {
+        const res = await API.googleAuth({ credential: response.credential });
+        if (res.user && ['owner', 'admin'].includes(res.user.role)) {
+          window.location.href = '/admin/dashboard.html';
+        } else {
+          window.location.href = 'index.html';
+        }
+      } catch (err) {
+        alert("Google Auth Error: " + err.message);
+      }
+    }
+
+    async function handleAppleCredentialResponse(response) {
+      try {
+        const res = await API.appleAuth({ id_token: response.detail.authorization.id_token });
+        if (res.user && ['owner', 'admin'].includes(res.user.role)) {
+          window.location.href = '/admin/dashboard.html';
+        } else {
+          window.location.href = 'index.html';
+        }
+      } catch (err) {
+        alert("Apple Auth Error: " + err.message);
+      }
+    }
+
+    async function executeOAuthLogin(provider) {
+      const email = document.getElementById('oauthTestEmail').value.trim();
+      const full_name = document.getElementById('oauthTestName').value.trim();
+      const avatar_url = provider === 'google' 
+        ? 'https://lh3.googleusercontent.com/a/default-user=s96-c' 
+        : '';
+
+      try {
+        let res;
+        if (provider === 'google') {
+          res = await API.googleAuth({ email, full_name, avatar_url });
+        } else {
+          res = await API.appleAuth({ email, full_name });
+        }
+        if (res.user && ['owner', 'admin'].includes(res.user.role)) {
+          window.location.href = '/admin/dashboard.html';
+        } else {
+          window.location.href = 'index.html';
+        }
+      } catch (err) {
+        alert(err.message || "OAuth login failed");
+      }
+    }
+
+    function closeOAuthModal() {
+      document.getElementById('oauthModal').classList.remove('active');
+    }
+  </script>
+</body>
+</html>

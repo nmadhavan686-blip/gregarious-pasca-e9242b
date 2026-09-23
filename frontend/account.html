@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Account | C2T MOBILES</title>
+  <meta name="description" content="View and manage your C2T MOBILES customer profile and WhatsApp enquiry history.">
+  <link rel="stylesheet" href="css/style.css?v=20260913_v3">
+  <link rel="stylesheet" href="css/responsive.css?v=20260913_v3">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    .account-section {
+      padding: 3rem 0;
+      background-color: var(--bg-body, #f8fafc);
+      min-height: calc(100vh - 300px);
+    }
+    .account-grid {
+      display: grid;
+      grid-template-columns: 320px 1fr;
+      gap: 2rem;
+    }
+    @media (max-width: 900px) {
+      .account-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    .profile-card {
+      background: #ffffff;
+      border-radius: var(--radius-md, 12px);
+      padding: 2rem;
+      border: 1px solid var(--border-color, #e2e8f0);
+      box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+      text-align: center;
+    }
+    .avatar-wrapper {
+      width: 96px;
+      height: 96px;
+      margin: 0 auto 1.25rem;
+      border-radius: 50%;
+      overflow: hidden;
+      background: #eff6ff;
+      border: 3px solid var(--accent-blue, #2563eb);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .avatar-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .avatar-placeholder {
+      font-size: 2.25rem;
+      font-weight: 800;
+      color: var(--accent-blue, #2563eb);
+    }
+    .profile-name {
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: var(--text-main, #0f172a);
+      margin-bottom: 0.25rem;
+    }
+    .profile-email {
+      font-size: 0.9rem;
+      color: var(--text-muted, #64748b);
+      margin-bottom: 1rem;
+      word-break: break-all;
+    }
+    .auth-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.35rem 0.85rem;
+      border-radius: 9999px;
+      font-size: 0.775rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+    }
+    .auth-badge.local { background: #f1f5f9; color: #475569; }
+    .auth-badge.google { background: #e0f2fe; color: #0284c7; }
+    .auth-badge.apple { background: #f3e8ff; color: #7e22ce; }
+    .info-list {
+      text-align: left;
+      border-top: 1px solid var(--border-color, #e2e8f0);
+      padding-top: 1.25rem;
+      margin-bottom: 1.5rem;
+    }
+    .info-item {
+      margin-bottom: 0.85rem;
+    }
+    .info-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      font-weight: 700;
+      color: var(--text-light, #94a3b8);
+      margin-bottom: 0.15rem;
+    }
+    .info-value {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text-main, #0f172a);
+    }
+    .content-card {
+      background: #ffffff;
+      border-radius: var(--radius-md, 12px);
+      padding: 2rem;
+      border: 1px solid var(--border-color, #e2e8f0);
+      box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+    }
+    .section-title {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--text-main, #0f172a);
+      margin-bottom: 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .table-container {
+      overflow-x: auto;
+    }
+    .enquiry-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+    }
+    .enquiry-table th {
+      background: #f8fafc;
+      padding: 0.85rem 1rem;
+      font-size: 0.8rem;
+      font-weight: 800;
+      color: var(--text-muted, #64748b);
+      border-bottom: 1px solid var(--border-color, #e2e8f0);
+      text-transform: uppercase;
+    }
+    .enquiry-table td {
+      padding: 1rem;
+      font-size: 0.9rem;
+      border-bottom: 1px solid var(--border-color, #e2e8f0);
+      color: var(--text-main, #0f172a);
+    }
+    .enquiry-table tr:hover {
+      background-color: #f8fafc;
+    }
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.6);
+      backdrop-filter: blur(4px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s ease;
+    }
+    .modal-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .modal-card {
+      background: #ffffff;
+      width: 100%;
+      max-width: 480px;
+      padding: 2rem;
+      border-radius: var(--radius-md, 12px);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Announcement Bar -->
+  <div class="top-bar">
+    <div class="container top-bar-content">
+      <div>⏰ 10:00 AM - 9:00 PM</div>
+      <div style="display:flex; gap:1.5rem;">
+        <a href="tel:9994645492" style="color:white;">📞 9994645492</a>
+        <a href="#" class="dynamic-wa-link" style="color:#4ade80;">💬 WhatsApp Direct</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Header / Navbar -->
+  <header class="header">
+    <div class="container header-container">
+      <a href="index.html" class="brand-logo">
+        <img src="assets/images/c2t_logo.png" alt="C2T MOBILES" class="logo-image" style="height:48px; max-width:180px; object-fit:contain;">
+      </a>
+
+      <nav class="nav-links">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="index.html#mobiles" class="nav-link">Mobiles</a>
+        <a href="index.html#brands" class="nav-link">Brands</a>
+        <a href="about.html" class="nav-link">About Us</a>
+        <a href="contact.html" class="nav-link">Contact</a>
+        <a href="faq.html" class="nav-link">FAQ</a>
+        <a href="account.html" class="nav-link active">My Account</a>
+      </nav>
+
+      <div class="header-actions">
+        <div id="userHeaderAuth"></div>
+        <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle navigation">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Account Content -->
+  <main class="account-section">
+    <div class="container">
+      <div class="account-grid">
+        
+        <!-- Sidebar Profile Card -->
+        <aside class="profile-card">
+          <div class="avatar-wrapper" id="avatarContainer">
+            <span class="avatar-placeholder" id="avatarInitials">U</span>
+          </div>
+
+          <h2 class="profile-name" id="profileName">User Name</h2>
+          <p class="profile-email" id="profileEmail">user@example.com</p>
+
+          <div id="authBadgeContainer">
+            <span class="auth-badge local">🔒 Local Account</span>
+          </div>
+
+          <div class="info-list">
+            <div class="info-item">
+              <div class="info-label">Mobile Number</div>
+              <div class="info-value" id="profilePhone">+91 --</div>
+            </div>
+            <div class="info-item">
+              <div class="info-label">Member Since</div>
+              <div class="info-value" id="profileJoined">--</div>
+            </div>
+          </div>
+
+          <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+            <button class="btn btn-outline-dark" style="width: 100%;" onclick="openEditModal()">✏️ Edit Profile</button>
+            <button class="btn btn-outline-danger" style="width: 100%; color: #ef4444; border-color: #fca5a5;" onclick="handleUserLogout()">🚪 Log Out</button>
+          </div>
+        </aside>
+
+        <!-- Right Main Panel: WhatsApp Enquiry History -->
+        <section class="content-card">
+          <h2 class="section-title">
+            <span>📱 My WhatsApp Enquiry History</span>
+          </h2>
+          <p style="color: var(--text-muted, #64748b); font-size: 0.9rem; margin-bottom: 1.5rem;">
+            Below is your complete record of smartphone enquiries sent directly to C2T MOBILES on WhatsApp.
+          </p>
+
+          <div id="enquiryContent">
+            <div style="text-align: center; padding: 3rem 1rem; color: var(--text-muted, #64748b);">
+              Loading enquiry history...
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- Edit Profile Modal -->
+  <div class="modal-overlay" id="editProfileModal">
+    <div class="modal-card">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+        <h3 style="font-size: 1.25rem; font-weight: 800; color: var(--text-main);">Edit Profile</h3>
+        <button onclick="closeEditModal()" style="background: none; border: none; font-size: 1.5rem; cursor: pointer; color: var(--text-muted);">&times;</button>
+      </div>
+
+      <form id="editProfileForm">
+        <!-- Clean Vertical Form Layout: Label strictly above input -->
+        <div class="form-group">
+          <label for="editFullName">Full Name</label>
+          <input type="text" id="editFullName" class="form-control" placeholder="Enter your full name" required>
+        </div>
+
+        <div class="form-group">
+          <label for="editEmail">Email Address</label>
+          <input type="email" id="editEmail" class="form-control" placeholder="Enter your email address" required>
+        </div>
+
+        <div class="form-group">
+          <label for="editPhone">Mobile Phone Number</label>
+          <input type="tel" id="editPhone" class="form-control" placeholder="Enter your 10-digit mobile number">
+        </div>
+
+        <div id="editError" style="display: none; color: var(--accent-rose, #f43f5e); font-weight: 700; font-size: 0.85rem; margin-bottom: 1rem; text-align: center;"></div>
+
+        <div style="display: flex; gap: 1rem; justify-content: flex-end; margin-top: 1.5rem;">
+          <button type="button" class="btn btn-outline-dark" onclick="closeEditModal()">Cancel</button>
+          <button type="submit" id="saveProfileBtn" class="btn btn-primary">Save Changes</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <a href="index.html" class="brand-logo" style="margin-bottom: 1rem; display:inline-block;">
+            <img src="assets/images/c2t_logo.png" alt="C2T MOBILES" class="logo-image" style="height:52px; max-width:200px; object-fit:contain;">
+          </a>
+          <p style="color: #94a3b8; font-size: 0.9rem; margin-top: 0.75rem;">
+            Your trusted destination for quality-inspected, second-hand smartphones with honest pricing and direct WhatsApp support.
+          </p>
+        </div>
+        <div>
+          <h4>Quick Links</h4>
+          <ul style="list-style:none; padding:0; line-height:2;">
+            <li><a href="index.html" style="color:#94a3b8;">Home</a></li>
+            <li><a href="index.html#mobiles" style="color:#94a3b8;">Latest Stock</a></li>
+            <li><a href="about.html" style="color:#94a3b8;">About C2T</a></li>
+            <li><a href="contact.html" style="color:#94a3b8;">Contact Store</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Customer Care</h4>
+          <p style="color:#94a3b8; font-size:0.9rem;">
+            📞 9994645492<br>
+            💬 WhatsApp: Direct enquiry
+          </p>
+        </div>
+      </div>
+      <div style="border-top: 1px solid #334155; margin-top: 2rem; padding-top: 1.5rem; text-align: center; color: #64748b; font-size: 0.85rem;">
+        © 2026 C2T MOBILES. All rights reserved. Built with direct WhatsApp communication.
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/api.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    let currentUser = null;
+
+    document.addEventListener('DOMContentLoaded', async () => {
+      loadProfileData();
+
+      const editForm = document.getElementById('editProfileForm');
+      editForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const errorDiv = document.getElementById('editError');
+        errorDiv.style.display = 'none';
+
+        const fullName = document.getElementById('editFullName').value.trim();
+        const email = document.getElementById('editEmail').value.trim();
+        const phone = document.getElementById('editPhone').value.trim();
+
+        try {
+          await API.updateUserProfile({ full_name: fullName, email, phone });
+          closeEditModal();
+          loadProfileData();
+        } catch (err) {
+          errorDiv.textContent = err.message || "Failed to update profile";
+          errorDiv.style.display = 'block';
+        }
+      });
+    });
+
+    async function loadProfileData() {
+      const enquiryContent = document.getElementById('enquiryContent');
+      try {
+        const data = await API.getUserProfile();
+        currentUser = data.user;
+        const enquiries = data.enquiries || [];
+
+        // Render Profile
+        document.getElementById('profileName').textContent = currentUser.full_name || 'Customer';
+        document.getElementById('profileEmail').textContent = currentUser.email || '';
+        document.getElementById('profilePhone').textContent = currentUser.phone ? `+91 ${currentUser.phone}` : 'Not added';
+        
+        if (currentUser.created_at) {
+          const dt = new Date(currentUser.created_at);
+          document.getElementById('profileJoined').textContent = dt.toLocaleDateString('en-IN', { month: 'short', year: 'numeric' });
+        }
+
+        // Avatar
+        const avatarContainer = document.getElementById('avatarContainer');
+        if (currentUser.avatar_url) {
+          avatarContainer.innerHTML = `<img src="${currentUser.avatar_url}" alt="Profile Avatar" class="avatar-img">`;
+        } else {
+          const initials = (currentUser.full_name || 'U').split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
+          avatarContainer.innerHTML = `<span class="avatar-placeholder">${initials}</span>`;
+        }
+
+        // Auth Provider Badge
+        const badgeContainer = document.getElementById('authBadgeContainer');
+        const provider = currentUser.auth_provider || 'local';
+        if (provider === 'google') {
+          badgeContainer.innerHTML = `<span class="auth-badge google"><svg width="14" height="14" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/></svg> Google Authenticated</span>`;
+        } else if (provider === 'apple') {
+          badgeContainer.innerHTML = `<span class="auth-badge apple"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.32c.67-.82 1.13-1.97.99-3.12-.98.04-2.19.66-2.88 1.47-.62.72-1.16 1.89-.99 3.02 1.1.09 2.23-.55 2.88-1.37z"/></svg> Apple Signed-In</span>`;
+        } else {
+          badgeContainer.innerHTML = `<span class="auth-badge local">🔒 Email & Password Verified</span>`;
+        }
+
+        // Render Enquiries History
+        if (!enquiries || enquiries.length === 0) {
+          enquiryContent.innerHTML = `
+            <div style="text-align: center; padding: 3rem 1rem; background: #f8fafc; border-radius: 8px; border: 1px dashed #cbd5e1;">
+              <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">📱</div>
+              <h3 style="font-size: 1.1rem; font-weight: 700; color: var(--text-main);">No Enquiries Logged Yet</h3>
+              <p style="color: var(--text-muted); font-size: 0.875rem; margin: 0.5rem 0 1.25rem;">
+                Browse our latest inventory and click "Buy on WhatsApp" to initiate your direct conversation.
+              </p>
+              <a href="index.html#mobiles" class="btn btn-primary" style="font-size: 0.875rem;">Explore Latest Mobiles</a>
+            </div>
+          `;
+        } else {
+          let rows = enquiries.map(item => {
+            const dt = item.created_at ? new Date(item.created_at).toLocaleString('en-IN', { dateStyle: 'medium', timeStyle: 'short' }) : 'Recently';
+            const priceStr = item.product_price ? formatINR(item.product_price) : (item.price ? formatINR(item.price) : 'N/A');
+            const codeStr = item.code || item.product_code || 'PROD';
+            const titleStr = item.brand && item.model ? `${item.brand} ${item.model}` : (item.product_name || 'Smartphone');
+            const linkHref = item.slug ? `product.html?slug=${item.slug}` : 'index.html#mobiles';
+
+            return `
+              <tr>
+                <td><strong style="color: var(--accent-blue);">${codeStr}</strong></td>
+                <td><a href="${linkHref}" style="font-weight: 700; color: var(--text-main); text-decoration: none;">${titleStr}</a></td>
+                <td><strong style="color: #15803d;">${priceStr}</strong></td>
+                <td style="color: var(--text-muted); font-size: 0.85rem;">${dt}</td>
+                <td>
+                  <a href="${linkHref}" class="btn btn-outline-dark btn-sm" style="font-size:0.775rem; padding:0.25rem 0.6rem;">View Details</a>
+                </td>
+              </tr>
+            `;
+          }).join('');
+
+          enquiryContent.innerHTML = `
+            <div class="table-container">
+              <table class="enquiry-table">
+                <thead>
+                  <tr>
+                    <th>Code</th>
+                    <th>Product</th>
+                    <th>Price</th>
+                    <th>Enquiry Date</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  ${rows}
+                </tbody>
+              </table>
+            </div>
+          `;
+        }
+
+      } catch (err) {
+        enquiryContent.innerHTML = `<div style="color: red; text-align: center; padding: 2rem;">Failed to load account details. Please log in again.</div>`;
+      }
+    }
+
+    function openEditModal() {
+      if (!currentUser) return;
+      document.getElementById('editFullName').value = currentUser.full_name || '';
+      document.getElementById('editEmail').value = currentUser.email || '';
+      document.getElementById('editPhone').value = currentUser.phone || '';
+      document.getElementById('editError').style.display = 'none';
+      document.getElementById('editProfileModal').classList.add('active');
+    }
+
+    function closeEditModal() {
+      document.getElementById('editProfileModal').classList.remove('active');
+    }
+  </script>
+</body>
+</html>

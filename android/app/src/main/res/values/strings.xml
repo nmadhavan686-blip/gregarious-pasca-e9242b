@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">C2T MOBILES</string>
+    <string name="app_tagline">Customer to Tech - Premier Mobile Store</string>
+    <string name="app_url">https://c2t-mobiles.onrender.com</string>
+    <string name="official_phone">9994645492</string>
+    <string name="whatsapp_number">919994645492</string>
+    
+    <!-- Offline & Error Layout Strings -->
+    <string name="offline_title">No Internet Connection</string>
+    <string name="offline_message">Device has no active internet connection. Please check your mobile data or Wi-Fi settings and tap RETRY CONNECTION.</string>
+    
+    <string name="server_unreachable_title">Unable to Connect to Server</string>
+    <string name="server_unreachable_message">Unable to connect to C2T MOBILES server (https://c2t-mobiles.onrender.com). The domain resolution or server connection failed. Please check server availability and tap RETRY CONNECTION.</string>
+    
+    <string name="ssl_error_title">Security Connection Error</string>
+    <string name="ssl_error_message">A secure SSL/TLS connection to C2T MOBILES could not be established. Please check certificate configuration.</string>
+    
+    <string name="http_error_title">Server Response Error</string>
+    <string name="http_error_message">The C2T MOBILES server returned an HTTP error. Please try again later.</string>
+    
+    <string name="btn_retry">RETRY CONNECTION</string>
+    
+    <!-- File provider -->
+    <string name="file_provider_authority">com.c2tmobiles.app.fileprovider</string>
+</resources>

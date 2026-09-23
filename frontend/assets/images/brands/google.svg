@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 80" width="100%" height="100%">
+  <g transform="translate(20, 10)">
+    <!-- Google G Icon -->
+    <path fill="#4285F4" d="M 30 30 C 30 28.5 29.8 27.1 29.5 25.8 L 15 25.8 L 15 34.2 L 23.4 34.2 C 23 36.3 21.8 38.1 20 39.3 L 20 43.5 L 25.5 43.5 C 28.7 40.5 30 35.7 30 30 Z"/>
+    <path fill="#34A853" d="M 15 45 C 19.1 45 22.5 43.6 25.5 40.9 L 20 36.7 C 18.6 37.6 16.9 38.2 15 38.2 C 11.1 38.2 7.7 35.5 6.5 31.9 L 0.8 31.9 L 0.8 36.3 C 3.7 41.5 9 45 15 45 Z"/>
+    <path fill="#FBBC05" d="M 6.5 31.9 C 6.2 31 6 30 6 29 C 6 28 6.2 27 6.5 26.1 L 6.5 21.7 L 0.8 21.7 C -0.4 24 -1 26.4 -1 29 C -1 31.6 -0.4 34 0.8 36.3 L 6.5 31.9 Z" transform="translate(1,1)"/>
+    <path fill="#EA4335" d="M 15 13 C 17.2 13 19.2 13.8 20.8 15.3 L 25.7 10.4 C 22.5 7.4 19.1 6 15 6 C 9 6 3.7 9.5 0.8 14.7 L 6.5 19.1 C 7.7 15.5 11.1 13 15 13 Z"/>
+  </g>
+  <text x="175" y="52" font-family="'Plus Jakarta Sans', 'Product Sans', Arial, sans-serif" font-size="34" font-weight="700" fill="#1F2937" letter-spacing="1" text-anchor="middle">Google</text>
+</svg>
